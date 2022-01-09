@@ -1,0 +1,51 @@
+* {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Courier New', monospace;
+}
+
+body {
+    background-color: #8b8b8b;
+}
+
+main, header, footer {
+    background-color: #c0c0c0;
+    border-radius: 12px;
+    border-color: #064600;
+    border-style: solid;
+    border-width: 1px;
+    margin: 10px;
+    padding-left: 1px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+button {
+    background-color: #ffffffb9;
+    border-radius: 12px;
+    border-style: solid;
+    border-width: 1px;
+    width: 100%;
+    margin: 5px;
+    font-size: large;
+}
+
+.pswdString {
+    font-weight: bold;
+    font-size: large;
+}
+
+.checkboxSel {
+    margin: 5px;
+    padding-left: 30%;
+    text-align: left;
+}
+
+.formBox {
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
