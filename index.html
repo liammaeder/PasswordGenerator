@@ -1,101 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Generator</title>
-</head>
-<body>
-    <header>
-        <h1>Password Generator</h1>
-    </header>
-    <main>
-        <form id="pswdForm">
-            <div class="formBox">
-                <label for="pLength">How long must the password be?</label><br>
-                <input type="number" name="pLength" id="inputAmnt" placeholder="Password Length"><br>
-            </div> 
-            <div class="formBox"> 
-                <label for="charSelect">Select which types of values must be in the password:</label><br>
-                <div class="checkboxSel">
-                    <input type="checkbox" name="charSelect" id="charUpper" value="charSelect">Uppercase Letters (ABC - Z)<br>
-                    <input type="checkbox" name="charSelect" id="charLower" value="charSelect">Lowercase Letters (abc - z)<br>
-                    <input type="checkbox" name="charSelect" id="charNums" value="charSelect">Numbers (1234567890)<br>
-                    <input type="checkbox" name="charSelect" id="charSpecial" value="charSelect">Special Characters (!@#$%^&*()_+)<br>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Password Generator</title>
+    </head>
+    <body>
+        <header>
+            <h1>Password Generator</h1>
+        </header>
+        <main>
+            <form id="pswdForm">
+                <div class="formBox">
+                    <label for="pLength">How long must the password be?</label><br>
+                    <input type="number" name="pLength" id="inputAmnt" placeholder="Password Length"><br>
+                </div> 
+                <div class="formBox"> 
+                    <label for="charSelect">Select which types of values must be in the password:</label><br>
+                    <div class="checkboxSel">
+                        <input type="checkbox" name="charSelect" id="charUpper" value="charSelect">Uppercase Letters (ABC - Z)<br>
+                        <input type="checkbox" name="charSelect" id="charLower" value="charSelect">Lowercase Letters (abc - z)<br>
+                        <input type="checkbox" name="charSelect" id="charNums" value="charSelect">Numbers (1234567890)<br>
+                        <input type="checkbox" name="charSelect" id="charSpecial" value="charSelect">Special Characters (!@#$%^&*()_+)<br>
+                    </div>
                 </div>
-            </div>
-        </form>
-        <button class="btnSubmit" onclick="generatePassword()">Submit</button><br>
-        <button class="btnClear" onclick="clearForm()">Clear</button>
-    </main>
-    <footer id="resultsPrint" hidden>
-    </footer>
-    <script>
-        function generatePassword() {
+            </form>
+            <button class="btnSubmit" onclick="generatePassword()">Submit</button><br>
+            <button class="btnClear" onclick="clearForm()">Clear</button>
+        </main>
+        <footer id="resultsPrint" hidden>
+        </footer>
+        <script>
+            function generatePassword() {
 
-            var pCharset = "";
-            var pswdString = "";
-            var cbSel = false;
-            var specChar = "!@#$%^&*()_+{}|:\"<>?\[\]\;\',./";
-            var uppChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            var lowChar = "abcdefghijklmnopqrstuvwxyz";
-            var numChar = "0123456789";
-            const pLength = $('input[name="pLength"]').val();
+                var pCharset = "";
+                var pswdString = "";
+                var cbSel = false;
+                var specChar = "!@#$%^&*()_+{}|:\"<>?\[\]\;\',./";
+                var uppChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                var lowChar = "abcdefghijklmnopqrstuvwxyz";
+                var numChar = "0123456789";
+                const pLength = document.getElementById("inputAmnt").value;
+                const cNum = document.getElementById("charNums");
+                const cUpper = document.getElementById("charUpper");
+                const cLower = document.getElementById("charLower");
+                const cSpecial = document.getElementById("charSpecial");
 
-            if ($("#charSpecial").is(":checked")) {
-                pCharset += specChar;   
-                cbSel = true;     
+                if (cSpecial.checked) {
+                    pCharset += specChar;   
+                    cbSel = true;     
+                }
+
+                if (cUpper.checked) {
+                    pCharset += uppChar; 
+                    cbSel = true;     
+                }
+
+                if (cLower.checked) {
+                    pCharset += lowChar; 
+                    cbSel = true;     
+                }
+
+                if (cNum.checked) {
+                    pCharset += numChar; 
+                    cbSel = true;     
+                }
+
+                if (!cbSel) {
+                    alert("Please select at least one character type.");
+                    return;
+                }
+
+                for (var i = 0; i < pLength; i++) {
+                    var rndIdx = Math.floor(Math.random() * pCharset.length);
+                    pswdString += pCharset.substring(rndIdx, rndIdx + 1);
+                }
+
+                var resultBlk = document.getElementById("resultsPrint");
+                resultBlk.html("<p>Your password is:</p><br><p id=\"pswdString\" class=\"pswdString\">" + pswdString + "</p><br><button onclick=\"copyPswd()\">Copy to clipboard.</button>");
+                resultBlk.attr('hidden', false);
+
             }
 
-            if ($("#charUpper").is(":checked")) {
-                pCharset += uppChar; 
-                cbSel = true;     
+            function clearForm() {
+                document.getElementById("pswdForm").reset();
             }
 
-            if ($("#charLower").is(":checked")) {
-                pCharset += lowChar; 
-                cbSel = true;     
+            function copyPswd() {
+                navigator.clipboard.writeText(document.getElementById("pswdString").innerHTML);
+                var resultBlk = document.getElementById("resultsPrint");
+                resultBlk.html("<p>Copied!</p>");
             }
-
-            if ($("#charNums").is(":checked")) {
-                pCharset += numChar; 
-                cbSel = true;     
-            }
-
-            if (!cbSel) {
-                alert("Please select at least one character type.");
-                return;
-            }
-
-            for (var i = 0; i < pLength; i++) {
-                var rndIdx = Math.floor(Math.random() * pCharset.length);
-                pswdString += pCharset.substring(rndIdx, rndIdx + 1);
-            }
-
-            var resultBlk = $("#resultsPrint");
-            resultBlk.html("<p>Your password is:</p><br><p id=\"pswdString\" class=\"pswdString\">" + pswdString + "</p><br><button onclick=\"copyPswd()\">Copy to clipboard.</button>");
-            resultBlk.attr('hidden', false);
-
-        }
-
-        function clearForm() {
-            $('input[name="pLength"]').val("");
-            $('input[name="pLength"]').attr('placeholder', "Enter password length");
-            $("#charSpecial").prop("checked", false);
-            $("#charUpper").prop("checked", false);
-            $("#charLower").prop("checked", false);
-            $("#charNums").prop("checked", false);
-            $("#resultsPrint").attr('hidden', true);
-        }
-
-        function copyPswd() {
-            navigator.clipboard.writeText($("#pswdString").text());
-            var resultBlk = $("#resultsPrint");
-            resultBlk.html("<p>Copied!</p>");
-        }
-    </script>
-</body>
+        </script>
+    </body>
 </html>
