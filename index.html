@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </form>
-            <button class="btnSubmit" onclick="generatePassword()">Submit</button><br>
+            <button class="btnS`ubmit" onclick="generatePassword()">Submit</button><br>
             <button class="btnClear" onclick="clearForm()">Clear</button>
         </main>
         <footer id="resultsPrint" hidden>
@@ -76,11 +76,12 @@
                 for (var i = 0; i < pLength; i++) {
                     var rndIdx = Math.floor(Math.random() * pCharset.length);
                     pswdString += pCharset.substring(rndIdx, rndIdx + 1);
+                    console.log(pswdString);
                 }
 
                 var resultBlk = document.getElementById("resultsPrint");
-                resultBlk.html("<p>Your password is:</p><br><p id=\"pswdString\" class=\"pswdString\">" + pswdString + "</p><br><button onclick=\"copyPswd()\">Copy to clipboard.</button>");
-                resultBlk.attr('hidden', false);
+                resultBlk.innerHTML = "<p>Your password is:</p><br><p id=\"pswdString\" class=\"pswdString\">" + pswdString + "</p><br><button onclick=\"copyPswd()\">Copy to clipboard.</button>";
+                resultBlk.hidden = false;
 
             }
 
@@ -91,7 +92,7 @@
             function copyPswd() {
                 navigator.clipboard.writeText(document.getElementById("pswdString").innerHTML);
                 var resultBlk = document.getElementById("resultsPrint");
-                resultBlk.html("<p>Copied!</p>");
+                resultBlk.innerHTML = "<p>Copied!</p>";
             }
         </script>
     </body>
