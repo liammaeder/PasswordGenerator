@@ -13,6 +13,11 @@ function generatePassword() {
     const cLower = document.getElementById("charLower");
     const cSpecial = document.getElementById("charSpecial");
 
+    if (pLength = 0) {
+        alert("Please enter a password length");
+        return;
+    }
+
     if (cSpecial.checked) {
         pCharset += specChar;   
         cbSel = true;     
