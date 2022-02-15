@@ -1,19 +1,20 @@
-function generatePassword() {
+var pCharset = "";
+var pswdString = "";
+var cbSel = false;
 
-    var pCharset = "";
-    var pswdString = "";
-    var cbSel = false;
-    var specChar = "!@#$%^&*()_+{}|:\"<>?\[\]\;\',./";
-    var uppChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var lowChar = "abcdefghijklmnopqrstuvwxyz";
-    var numChar = "0123456789";
+function generatePassword() {
+    
     const pLength = document.getElementById("inputAmnt").value;
     const cNum = document.getElementById("charNums");
     const cUpper = document.getElementById("charUpper");
     const cLower = document.getElementById("charLower");
     const cSpecial = document.getElementById("charSpecial");
+    var specChar = "!@#$%^&*()_+{}|:\"<>?\[\]\;\',./";
+    var uppChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var lowChar = "abcdefghijklmnopqrstuvwxyz";
+    var numChar = "0123456789";
 
-    if (pLength = 0) {
+    if (pLength == 0) {
         alert("Please enter a password length");
         return;
     }
@@ -49,10 +50,10 @@ function generatePassword() {
     }
 
     var resultBlk = document.getElementById("resultsPrint");
-    resultBlk.innerHTML = "<p>Your password is:</p><br><p id=\"pswdString\" class=\"pswdString\">" + pswdString + "</p><br><button onclick=\"copyPswd()\">Copy to clipboard.</button>";
-    resultBlk.hidden = false;
-
+        resultBlk.innerHTML = "<p>Your password is:</p><br><p id=\"pswdString\" class=\"pswdString\">" + pswdString + "</p><br><button onclick=\"copyPswd()\">Copy to clipboard.</button>";
+        resultBlk.hidden = false;
 }
+
 
 function clearForm() {
     document.getElementById("pswdForm").reset();
@@ -62,5 +63,5 @@ function clearForm() {
 function copyPswd() {
     navigator.clipboard.writeText(document.getElementById("pswdString").innerHTML);
     var resultBlk = document.getElementById("resultsPrint");
-    resultBlk.innerHTML = "<p>Copied!</p>";
+    resultBlk.innerHTML ="<p>Your password is:</p><br><p id=\"pswdString\" class=\"pswdString\">" + pswdString + "</p><br><p>Copied!</p><br><button onclick=\"copyPswd()\">Copy to clipboard.</button>";
 }
